@@ -1,0 +1,11 @@
+{
+  "name": "steamid-toolkit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "SteamID64 / SteamID3 / SteamID converter for CS2 admin tooling",
+  "bin": { "steamid": "./dist/cli.js" },
+  "scripts": { "build": "tsc" },
+  "author": "Kian Zarandi",
+  "license": "MIT",
+  "devDependencies": { "@types/node": "^20.11.0", "typescript": "^5.3.0" }
+}
