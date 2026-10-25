@@ -24,6 +24,12 @@ export function toSteamId(id64: string): string {
   return `STEAM_1:${y}:${z}`;
 }
 
+/** Community profile URL for a SteamID64. */
+export function profileUrl(id64: string): string {
+  const normalized = isSteamId64(id64) ? id64 : parseAny(id64);
+  return `https://steamcommunity.com/profiles/${normalized}`;
+}
+
 export function parseAny(input: string): string {
   const s = input.trim();
   if (isSteamId64(s)) return s;
@@ -36,4 +42,23 @@ export function parseAny(input: string): string {
     return toSteamId64FromAccount(z * 2 + y);
   }
   throw new Error(`unrecognized SteamID: ${input}`);
+}
+
+export type SteamIdResult = {
+  steamid64: string;
+  steamid3: string;
+  steamid: string;
+  accountId: number;
+  profileUrl: string;
+};
+
+export function convert(input: string): SteamIdResult {
+  const id64 = parseAny(input);
+  return {
+    steamid64: id64,
+    steamid3: toSteamId3(id64),
+    steamid: toSteamId(id64),
+    accountId: accountIdFromSteamId64(id64),
+    profileUrl: profileUrl(id64)
+  };
 }
